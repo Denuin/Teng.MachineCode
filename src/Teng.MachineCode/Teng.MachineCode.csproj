@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <TargetFrameworks>net462;net481;net6.0;net8.0</TargetFrameworks>
     <Nullable>enable</Nullable>
+    <LangVersion>8.0</LangVersion>
     <Company></Company>
     <PackageProjectUrl>https://github.com/Denuin/Teng.MachineCode</PackageProjectUrl>
     <Title>Machine code generator</Title>
@@ -12,14 +12,18 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Denuin/Teng.MachineCode</RepositoryUrl>
     <Description>Machine code generator</Description>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
+    <Version>1.0.1</Version>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>1701;1702;CA1822;IDE0220</NoWarn>
+    <NoWarn>1701;1702;CA1822;IDE0220;CA1416</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <NoWarn>1701;1702;CA1822;IDE0220</NoWarn>
+    <NoWarn>1701;1702;CA1822;IDE0220;CA1416</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

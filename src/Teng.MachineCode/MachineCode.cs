@@ -6,8 +6,12 @@
 // Github: https://github.com/Denuin/Teng.MachineCode
 // 修改记录:
 // - 2024-10-22 - 初始创建
+// - 2024-10-31 - Platform support
 //
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Management;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
@@ -51,11 +55,16 @@ namespace Teng
         /// </summary>
         public static bool UseBiosSerialNumber { get; set; } = true;
 
-        private static readonly Lazy<string> _lazyInstance = new(() =>
+        private static readonly Lazy<string> _lazyInstance = new Lazy<string>(() =>
         {
             var machineCode = new MachineCode();
             string mc = machineCode.GetMachineCodeString();
+#if NET6_0_OR_GREATER
             byte[] bytes = SHA1.HashData(Encoding.UTF8.GetBytes(mc));
+#else
+            using SHA1 sha1 = SHA1.Create();
+            byte[] bytes = sha1.ComputeHash(Encoding.UTF8.GetBytes(mc));
+#endif
             string sha1Code = string.Join("", bytes.Select(a => a.ToString("X2")));
             return Regex.Replace(sha1Code, @"\w{8}", "$0-", RegexOptions.IgnoreCase).TrimEnd('-');
         });
@@ -74,7 +83,7 @@ namespace Teng
         /// <returns></returns>
         public string GetMachineCodeString()
         {
-            List<string> lsta = [UseSalt];
+            List<string> lsta = new List<string> { UseSalt };
             if (UseCpuInfo)
             {
                 lsta.Add($"[CpuInfo]{GetCpuInfo()}");
@@ -130,10 +139,12 @@ namespace Teng
             string? result = "";
             try
             {
+#if NET481_OR_GREATER
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+#endif
                 {
-                    using ManagementClass mc = new("Win32_NetworkAdapterConfiguration");
-                    List<string> lsta = [];
+                    using ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
+                    List<string> lsta = new List<string>();
                     ManagementObjectCollection moc2 = mc.GetInstances();
                     foreach (ManagementObject mo in moc2)
                     {
@@ -142,10 +153,10 @@ namespace Teng
                             var mac = mo["MacAddress"]?.ToString()?.Trim();
                             if (!string.IsNullOrEmpty(mac))
                             {
-                                lsta.Add(mac);
+                                lsta.Add(mac!);
                             }
                         }
-                        mo.Dispose();
+                        mo?.Dispose();
                     }
                     if (lsta.Count > 0)
                     {
@@ -174,10 +185,12 @@ namespace Teng
             string? result = null;
             try
             {
+#if NET481_OR_GREATER
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+#endif
                 {
-                    using ManagementClass cimobject = new(path);
-                    List<string> lsta = [];
+                    using ManagementClass cimobject = new ManagementClass(path);
+                    List<string> lsta = new List<string>();
                     foreach (ManagementObject mo in cimobject.GetInstances())
                     {
                         if (mo == null || mo.Properties == null)
@@ -187,7 +200,7 @@ namespace Teng
                         var info = mo.Properties[propertyKey]?.Value?.ToString()?.Trim();
                         if (!string.IsNullOrEmpty(info))
                         {
-                            lsta.Add(info);
+                            lsta.Add(info!);
                         }
                         mo?.Dispose();
                     }

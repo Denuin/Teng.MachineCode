@@ -48,8 +48,9 @@ void Main()
 ```
 
 ## 版本日志
-
+ - 1.0.1 (2024-10-31)
+    - Platform support : net462, net481, net6.0, net8.0
  - 1.0.0 (2024-10-22)
-First release
+    - First release
 
 > https://github.com/Denuin/Teng.MachineCode
