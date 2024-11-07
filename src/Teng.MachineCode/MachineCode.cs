@@ -74,7 +74,7 @@ namespace Teng
         /// </summary>
         public static string Instance => _lazyInstance.Value;
 
-        private MachineCode()
+        public MachineCode()
         { }
 
         /// <summary>
