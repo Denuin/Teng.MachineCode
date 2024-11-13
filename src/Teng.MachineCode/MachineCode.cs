@@ -7,6 +7,7 @@
 // 修改记录:
 // - 2024-10-22 - 初始创建
 // - 2024-10-31 - Platform support
+// - 2024-11-13 - bugfix; Add OptionHardDiskCount
 //
 
 using System;
@@ -58,7 +59,7 @@ namespace Teng
         /// <summary>
         /// 硬盘数选项
         /// </summary>
-        public static int OptionHardDiskCount { get; set; } = 1;
+        public static int OptionHardDiskCount { get; set; } = 1;  // Add: 2024-11-13, v1.0.2
 
         private static readonly Lazy<string> _lazyInstance = new Lazy<string>(() =>
         {

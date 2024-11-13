@@ -18,6 +18,8 @@ void Main()
 	MachineCode.UseMacAddress = true; // 是否使用网卡MAC地址，默认为true
 	MachineCode.UseBiosSerialNumber = true; // 是否使用BIOS序列号，默认为true
 
+	MachineCode.OptionHardDiskCount = 1; // 设置硬盘数，默认为1（使用一个硬盘）
+
 	// 获取机器码
 	Console.WriteLine($"机器码：{MachineCode.Instance}");
 	
@@ -48,6 +50,9 @@ void Main()
 ```
 
 ## 版本日志
+ - 1.0.2 (2024-11-13)
+    - Add OptionHardDiskCount
+	- bug fix
  - 1.0.1 (2024-10-31)
     - Platform support : net462, net481, net6.0, net8.0
  - 1.0.0 (2024-10-22)

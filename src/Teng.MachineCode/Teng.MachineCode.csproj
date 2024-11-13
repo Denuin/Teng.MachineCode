@@ -6,15 +6,15 @@
     <LangVersion>8.0</LangVersion>
     <Company></Company>
     <PackageProjectUrl>https://github.com/Denuin/Teng.MachineCode</PackageProjectUrl>
-    <Title>Machine code generator</Title>
+    <Title>Teng.MachineCode</Title>
     <Authors>Denuin</Authors>
     <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Denuin/Teng.MachineCode</RepositoryUrl>
     <Description>Machine code generator</Description>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <FileVersion>1.0.1.0</FileVersion>
-    <Version>1.0.1</Version>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <FileVersion>1.0.2.0</FileVersion>
+    <Version>1.0.2</Version>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
