@@ -55,6 +55,11 @@ namespace Teng
         /// </summary>
         public static bool UseBiosSerialNumber { get; set; } = true;
 
+        /// <summary>
+        /// 硬盘数选项
+        /// </summary>
+        public static int OptionHardDiskCount { get; set; } = 1;
+
         private static readonly Lazy<string> _lazyInstance = new Lazy<string>(() =>
         {
             var machineCode = new MachineCode();
@@ -120,7 +125,7 @@ namespace Teng
         /// </summary>
         public string GetHDid()
         {
-            return GetManagementObjectValue("Win32_DiskDrive", "Model");
+            return GetManagementObjectValue("Win32_DiskDrive", "Model", OptionHardDiskCount);
         }
 
         /// <summary>
@@ -128,7 +133,7 @@ namespace Teng
         /// </summary>
         public string GetDiskSerialNumber()
         {
-            return GetManagementObjectValue("Win32_PhysicalMedia", "SerialNumber");
+            return GetManagementObjectValue("Win32_PhysicalMedia", "SerialNumber", OptionHardDiskCount);
         }
 
         /// <summary>
@@ -180,7 +185,7 @@ namespace Teng
 
         #region 私有方法
 
-        private static string GetManagementObjectValue(string path, string propertyKey, string defaultValue = "unknow")
+        private static string GetManagementObjectValue(string path, string propertyKey, int useCount = 16, string defaultValue = "unknow")
         {
             string? result = null;
             try
@@ -203,6 +208,10 @@ namespace Teng
                             lsta.Add(info!);
                         }
                         mo?.Dispose();
+                        if (lsta.Count >= useCount)
+                        {
+                            break;
+                        }
                     }
                     if (lsta.Count > 0)
                     {
