@@ -50,6 +50,10 @@ void Main()
 ```
 
 ## 版本日志
+ - 2.0.0 (2025-08-29)
+    - Optimized
+	- Platform support: net9.0
+
  - 1.0.2 (2024-11-13)
     - Add OptionHardDiskCount
 	- bug fix
